@@ -1,0 +1,5 @@
+FROM ghcr.io/foundation-model-stack/base:ray2.1.0-py38-gpu-pytorch1.12.0cu116-20221213-193103
+RUN pip uninstall torch torchvision -y;pip install --pre torch torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu117
+RUN pip install pytorch_lightning==1.5.10 ray_lightning torchmetrics==0.9.1 onnx
+RUN whoami
+RUN chmod 777 /home/ray

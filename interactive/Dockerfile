@@ -1,0 +1,7 @@
+FROM quay.io/opendatahub/notebooks:cuda-jupyter-minimal-ubi8-python-3.8
+RUN pip uninstall torch torchvision -y;pip install --pre torch torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu117
+RUN pip install transformers pyarrow ray[default]==2.1.0 ray[tune]==2.1.0
+RUN pip install codeflare-sdk git+https://github.com/MichaelClifford/torchx.git@ray2-patch
+RUN pip install onnxruntime tf2onnx
+RUN pip install datasets # imdb dataset
+RUN pip install boto3

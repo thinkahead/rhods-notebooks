@@ -1,0 +1,7 @@
+--extra-index-url https://download.pytorch.org/whl/nightly/cu117
+torch
+torchvision
+pytorch_lightning==1.5.10
+ray_lightning
+torchmetrics==0.9.1
+onnx

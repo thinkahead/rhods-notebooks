@@ -1,0 +1,293 @@
+<?xml version="1.0"?>
+<net name="torch_jit" version="11">
+	<layers>
+		<layer id="0" name="input_0" type="Parameter" version="opset1">
+			<data shape="?,1,28,28" element_type="f32" />
+			<output>
+				<port id="0" precision="FP32" names="input_0">
+					<dim>-1</dim>
+					<dim>1</dim>
+					<dim>28</dim>
+					<dim>28</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="1" name="Constant_7" type="Const" version="opset1">
+			<data element_type="i64" shape="2" offset="0" size="16" />
+			<output>
+				<port id="0" precision="I64">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="2" name="/model/model.0/Flatten" type="Reshape" version="opset1">
+			<data special_zero="true" />
+			<input>
+				<port id="0" precision="FP32">
+					<dim>-1</dim>
+					<dim>1</dim>
+					<dim>28</dim>
+					<dim>28</dim>
+				</port>
+				<port id="1" precision="I64">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32" names="/model/model.0/Flatten_output_0">
+					<dim>-1</dim>
+					<dim>784</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="3" name="model.1.weight" type="Const" version="opset1">
+			<data element_type="f32" shape="64, 784" offset="16" size="200704" />
+			<output>
+				<port id="0" precision="FP32" names="model.1.weight">
+					<dim>64</dim>
+					<dim>784</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="4" name="/model/model.1/Gemm/WithoutBiases" type="MatMul" version="opset1">
+			<data transpose_a="false" transpose_b="true" />
+			<input>
+				<port id="0" precision="FP32">
+					<dim>-1</dim>
+					<dim>784</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>64</dim>
+					<dim>784</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>-1</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="5" name="Constant_1145" type="Const" version="opset1">
+			<data element_type="f32" shape="1, 64" offset="200720" size="256" />
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="6" name="/model/model.1/Gemm" type="Add" version="opset1">
+			<data auto_broadcast="numpy" />
+			<input>
+				<port id="0" precision="FP32">
+					<dim>-1</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32" names="/model/model.1/Gemm_output_0">
+					<dim>-1</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="7" name="/model/model.2/Relu" type="ReLU" version="opset1">
+			<input>
+				<port id="0" precision="FP32">
+					<dim>-1</dim>
+					<dim>64</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="FP32" names="/model/model.2/Relu_output_0">
+					<dim>-1</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="8" name="model.4.weight" type="Const" version="opset1">
+			<data element_type="f32" shape="64, 64" offset="200976" size="16384" />
+			<output>
+				<port id="0" precision="FP32" names="model.4.weight">
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="9" name="/model/model.4/Gemm/WithoutBiases" type="MatMul" version="opset1">
+			<data transpose_a="false" transpose_b="true" />
+			<input>
+				<port id="0" precision="FP32">
+					<dim>-1</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>64</dim>
+					<dim>64</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>-1</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="10" name="Constant_1146" type="Const" version="opset1">
+			<data element_type="f32" shape="1, 64" offset="217360" size="256" />
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="11" name="/model/model.4/Gemm" type="Add" version="opset1">
+			<data auto_broadcast="numpy" />
+			<input>
+				<port id="0" precision="FP32">
+					<dim>-1</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32" names="/model/model.4/Gemm_output_0">
+					<dim>-1</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="12" name="/model/model.5/Relu" type="ReLU" version="opset1">
+			<input>
+				<port id="0" precision="FP32">
+					<dim>-1</dim>
+					<dim>64</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="FP32" names="/model/model.5/Relu_output_0">
+					<dim>-1</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="13" name="model.7.weight" type="Const" version="opset1">
+			<data element_type="f32" shape="10, 64" offset="217616" size="2560" />
+			<output>
+				<port id="0" precision="FP32" names="model.7.weight">
+					<dim>10</dim>
+					<dim>64</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="14" name="/model/model.7/Gemm/WithoutBiases" type="MatMul" version="opset1">
+			<data transpose_a="false" transpose_b="true" />
+			<input>
+				<port id="0" precision="FP32">
+					<dim>-1</dim>
+					<dim>64</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>10</dim>
+					<dim>64</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>-1</dim>
+					<dim>10</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="15" name="Constant_1147" type="Const" version="opset1">
+			<data element_type="f32" shape="1, 10" offset="220176" size="40" />
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>10</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="16" name="/model/model.7/Gemm" type="Add" version="opset1">
+			<data auto_broadcast="numpy" />
+			<input>
+				<port id="0" precision="FP32">
+					<dim>-1</dim>
+					<dim>10</dim>
+				</port>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>10</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32" names="/model/model.7/Gemm_output_0">
+					<dim>-1</dim>
+					<dim>10</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="17" name="output_0" type="LogSoftmax" version="opset5">
+			<data axis="1" />
+			<input>
+				<port id="0" precision="FP32">
+					<dim>-1</dim>
+					<dim>10</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="FP32" names="output_0">
+					<dim>-1</dim>
+					<dim>10</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="18" name="output_0/sink_port_0" type="Result" version="opset1">
+			<input>
+				<port id="0" precision="FP32">
+					<dim>-1</dim>
+					<dim>10</dim>
+				</port>
+			</input>
+		</layer>
+	</layers>
+	<edges>
+		<edge from-layer="0" from-port="0" to-layer="2" to-port="0" />
+		<edge from-layer="1" from-port="0" to-layer="2" to-port="1" />
+		<edge from-layer="2" from-port="2" to-layer="4" to-port="0" />
+		<edge from-layer="3" from-port="0" to-layer="4" to-port="1" />
+		<edge from-layer="4" from-port="2" to-layer="6" to-port="0" />
+		<edge from-layer="5" from-port="0" to-layer="6" to-port="1" />
+		<edge from-layer="6" from-port="2" to-layer="7" to-port="0" />
+		<edge from-layer="7" from-port="1" to-layer="9" to-port="0" />
+		<edge from-layer="8" from-port="0" to-layer="9" to-port="1" />
+		<edge from-layer="9" from-port="2" to-layer="11" to-port="0" />
+		<edge from-layer="10" from-port="0" to-layer="11" to-port="1" />
+		<edge from-layer="11" from-port="2" to-layer="12" to-port="0" />
+		<edge from-layer="12" from-port="1" to-layer="14" to-port="0" />
+		<edge from-layer="13" from-port="0" to-layer="14" to-port="1" />
+		<edge from-layer="14" from-port="2" to-layer="16" to-port="0" />
+		<edge from-layer="15" from-port="0" to-layer="16" to-port="1" />
+		<edge from-layer="16" from-port="2" to-layer="17" to-port="0" />
+		<edge from-layer="17" from-port="1" to-layer="18" to-port="0" />
+	</edges>
+	<rt_info>
+		<MO_version value="2022.3.0-9052-9752fafe8eb-releases/2022/3" />
+		<Runtime_version value="2022.3.0-9052-9752fafe8eb-releases/2022/3" />
+		<conversion_parameters>
+			<framework value="onnx" />
+			<input_model value="DIR/mnist3.onnx" />
+			<model_name value="mnist3" />
+		</conversion_parameters>
+		<legacy_frontend value="False" />
+	</rt_info>
+</net>

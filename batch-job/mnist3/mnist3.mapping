@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<mapping>
+	<map>
+		<framework name="input_0" output_port_id="input_0" />
+		<IR name="input_0" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="/model/model.0/Flatten" output_port_id="/model/model.0/Flatten_output_0" />
+		<IR name="/model/model.0/Flatten" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="model.1.weight" output_port_id="model.1.weight" />
+		<IR name="model.1.weight" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="/model/model.1/Gemm" output_port_id="/model/model.1/Gemm_output_0" />
+		<IR name="/model/model.1/Gemm" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="/model/model.2/Relu" output_port_id="/model/model.2/Relu_output_0" />
+		<IR name="/model/model.2/Relu" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="model.4.weight" output_port_id="model.4.weight" />
+		<IR name="model.4.weight" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="/model/model.4/Gemm" output_port_id="/model/model.4/Gemm_output_0" />
+		<IR name="/model/model.4/Gemm" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="/model/model.5/Relu" output_port_id="/model/model.5/Relu_output_0" />
+		<IR name="/model/model.5/Relu" output_port_id="1" />
+	</map>
+	<map>
+		<framework name="model.7.weight" output_port_id="model.7.weight" />
+		<IR name="model.7.weight" output_port_id="0" />
+	</map>
+	<map>
+		<framework name="/model/model.7/Gemm" output_port_id="/model/model.7/Gemm_output_0" />
+		<IR name="/model/model.7/Gemm" output_port_id="2" />
+	</map>
+	<map>
+		<framework name="output_0" output_port_id="output_0" />
+		<IR name="output_0" output_port_id="1" />
+	</map>
+</mapping>

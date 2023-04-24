@@ -1,0 +1,35 @@
+kind: ImageStream
+apiVersion: image.openshift.io/v1
+metadata:
+  name: cuda-a10gpu-notebook
+  namespace: redhat-ods-applications
+  labels:
+    opendatahub.io/notebook-image: 'true'
+  annotations:
+    opendatahub.io/notebook-image-name:
+      "CUDA A10 GPU Notebook"
+    opendatahub.io/notebook-image-desc: "Custom Jupyter notebook image with Python 3.8, Ray 2.1.0 and PyTorch"
+spec:
+  lookupPolicy:
+    local: true
+  tags:
+    - annotations:
+        openshift.io/imported-from: quay.io/thinkahead/notebooks
+      from:
+        kind: DockerImage
+        name: quay.io/thinkahead/notebooks:cuda-jupyter-minimal-ubi8-python-3.8
+      name: "cuda-jupyter-minimal-ubi8-python-3.8"
+      referencePolicy:
+        type: Source
+      importPolicy:
+        scheduled: true
+    - annotations:
+        openshift.io/imported-from: quay.io/thinkahead/notebooks
+      from:
+        kind: DockerImage
+        name: quay.io/thinkahead/notebooks:cuda-jupyter-minimal-ubi8-python-3.8-gpu
+      name: "cuda-jupyter-minimal-ubi8-python-3.8-gpu"
+      referencePolicy:
+        type: Source
+      importPolicy:
+        scheduled: true

@@ -14,6 +14,8 @@ spec:
     local: true
   tags:
     - annotations:
+        opendatahub.io/notebook-python-dependencies: '[{"name":"JupyterLab","version":"3.5"},{"name":"Notebook","version":"6.5"}]'
+        opendatahub.io/notebook-software: '[{"name":"Python","version":"v3.9"}]'
         openshift.io/imported-from: quay.io/thinkahead/notebooks
       from:
         kind: DockerImage
@@ -24,7 +26,10 @@ spec:
       importPolicy:
         scheduled: true
     - annotations:
+        opendatahub.io/notebook-python-dependencies: '[{"name":"JupyterLab","version":"3.5"},{"name":"Notebook","version":"6.5"}]'
+        opendatahub.io/notebook-software: '[{"name":"Python","version":"v3.9"}]'
         openshift.io/imported-from: quay.io/thinkahead/notebooks
+        opendatahub.io/workbench-image-recommended: "true"
       from:
         kind: DockerImage
         name: quay.io/thinkahead/notebooks:cuda-jupyter-minimal-ubi8-python-3.8-gpu

@@ -35,7 +35,7 @@ print("MASTER_ADDR: is ", os.getenv("MASTER_ADDR"))
 print("MASTER_PORT: is ", os.getenv("MASTER_PORT"))
 
 
-class LitMNIST(LightningModule):
+class LitCIFAR10(LightningModule):
     def __init__(self, data_dir=PATH_DATASETS, hidden_size=64, learning_rate=2e-4):
         super().__init__()
 
@@ -146,30 +146,28 @@ class LitMNIST(LightningModule):
     def setup(self, stage=None):
         # Assign train/val datasets for use in dataloaders
         if stage == "fit" or stage is None:
-            mnist_full = CIFAR10(self.data_dir, train=True, transform=self.transform)
-            self.mnist_train, self.mnist_val = random_split(mnist_full, [48000, 2000])
-            #self.mnist_train = CIFAR10(self.data_dir, train=True, transform=self.transform)
-            #self.mnist_val = CIFAR10(self.data_dir, train=False, transform=self.transform)
+            cifar10_full = CIFAR10(self.data_dir, train=True, transform=self.transform)
+            self.cifar10_train, self.cifar10_val = random_split(cifar10_full, [45000, 5000])
+            #self.cifar10_train = CIFAR10(self.data_dir, train=True, transform=self.transform)
+            #self.cifar10_val = CIFAR10(self.data_dir, train=False, transform=self.transform)
 
         # Assign test dataset for use in dataloader(s)
         if stage == "test" or stage is None:
-            self.mnist_test = CIFAR10(
-                self.data_dir, train=False, transform=self.transform
-            )
+            self.cifar10_test = CIFAR10(self.data_dir, train=False, transform=self.transform)
 
     def train_dataloader(self):
-        return DataLoader(self.mnist_train, batch_size=BATCH_SIZE)
+        return DataLoader(self.cifar10_train, batch_size=BATCH_SIZE)
 
     def val_dataloader(self):
-        return DataLoader(self.mnist_val, batch_size=BATCH_SIZE)
+        return DataLoader(self.cifar10_val, batch_size=BATCH_SIZE)
 
     def test_dataloader(self):
-        return DataLoader(self.mnist_test, batch_size=BATCH_SIZE)
+        return DataLoader(self.cifar10_test, batch_size=BATCH_SIZE)
 
 
-# Init DataLoader from MNIST Dataset
+# Init DataLoader from CIFAR10 Dataset
 
-model = LitMNIST()
+model = LitCIFAR10()
 
 print("GROUP: ", int(os.environ.get("GROUP_WORLD_SIZE", 1)))
 print("LOCAL: ", int(os.environ.get("LOCAL_WORLD_SIZE", 1)))
@@ -209,10 +207,10 @@ input_names = [ "input_0" ]
 output_names = [ "output_0" ]
 dynamic_axes={'input_0' : {0 : 'batch_size'},'output_0' : {0 : 'batch_size'}}
 
-#model.to_onnx('/tmp/mnist4.onnx', dummy_input, input_names=input_names, output_names=output_names, dynamic_axes=dynamic_axes)
+#model.to_onnx('/tmp/cifar10-4.onnx', dummy_input, input_names=input_names, output_names=output_names, dynamic_axes=dynamic_axes)
 torch.onnx.export(model, dummy_input, '/tmp/cifar10.onnx', verbose=True, input_names=input_names, output_names=output_names, dynamic_axes=dynamic_axes)
-#model.to_onnx('/tmp/mnist2.onnx', dummy_input, input_names=input_names, output_names=output_names)
-#torch.onnx.export(model, dummy_input, '/tmp/mnist1.onnx', verbose=True, input_names=input_names, output_names=output_names)
+#model.to_onnx('/tmp/cifar10-2.onnx', dummy_input, input_names=input_names, output_names=output_names)
+#torch.onnx.export(model, dummy_input, '/tmp/cifar10-1.onnx', verbose=True, input_names=input_names, output_names=output_names)
 
 print("GLOBAL_RANK: is ", trainer.global_rank)
 if trainer.global_rank==0:

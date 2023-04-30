@@ -7,3 +7,4 @@ RUN pip install datasets # imdb dataset
 RUN pip install boto3
 RUN pip install scikit-learn # iris dataset
 RUN pip install grpcio grpcio-tools==1.46.0
+RUN pip install openvino-dev matplotlib

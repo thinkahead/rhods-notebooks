@@ -28,7 +28,9 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86
 
 # Put conda in path so we can use conda activate
 ENV PATH=$CONDA_DIR/bin:$PATH
-RUN conda install pytorch torchvision cudatoolkit=11 -c pytorch-nightly
+RUN conda install cudatoolkit=11.8 -c nvidia
+RUN conda install pytorch torchvision -c pytorch-nightly
+#RUN conda install pytorch torchvision cudatoolkit=11 -c pytorch-nightly
 
 WORKDIR /workspace
 COPY certificates /certificates

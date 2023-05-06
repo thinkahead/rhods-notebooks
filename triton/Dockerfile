@@ -31,7 +31,7 @@ ENV PATH=$CONDA_DIR/bin:$PATH
 #RUN conda install pytorch torchvision cudatoolkit=11 -c pytorch-nightly
 
 WORKDIR /workspace
-COPY certificates /certificates
+#COPY certificates /certificates
 RUN pip install --pre torch torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu117
 
 #ENTRYPOINT ["tritonserver", "--model-repository=/models", "--grpc-use-ssl=1", "--grpc-use-ssl-mutual=1", "--grpc-server-cert", "/certificates/server.crt", "--grpc-server-key", "/certificates/server.key", "--grpc-root-cert", "/certificates/ca.crt"]

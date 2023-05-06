@@ -36,7 +36,6 @@ RUN pip install --pre torch torchvision --extra-index-url https://download.pytor
 
 #ENTRYPOINT ["tritonserver", "--model-repository=/models", "--grpc-use-ssl=1", "--grpc-use-ssl-mutual=1", "--grpc-server-cert", "/certificates/server.crt", "--grpc-server-key", "/certificates/server.key", "--grpc-root-cert", "/certificates/ca.crt"]
 ENTRYPOINT ["tritonserver", \
-            "--model-repository=s3://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc:80/alexei-object-store-65e189ee-454f-455a-a1be-16b00788f3bc/triton-model-repository", \
             "--grpc-use-ssl=1", \
             "--grpc-use-ssl-mutual=1", \
             "--grpc-server-cert=/certificates/server.crt", \
@@ -48,4 +47,6 @@ ENTRYPOINT ["tritonserver", \
             "--grpc-http2-max-pings-without-data=0", \
             "--grpc-http2-min-recv-ping-interval-without-data=5000", \
             "--grpc-http2-max-ping-strikes=0"]
-# "--model-repository=s3://s3.openshift-storage.svc.cluster.local:80/spark-demo-07ae575f-1b38-4064-b358-c0f7e1a88ddb/triton-model-repository", \
+            #"--model-repository=s3://s3.openshift-storage.svc.cluster.local:80/spark-demo-07ae575f-1b38-4064-b358-c0f7e1a88ddb/triton-model-repository", \
+            #"--model-repository=s3://rook-ceph-rgw-ocs-storagecluster-cephobjectstore.openshift-storage.svc:80/alexei-object-store-65e189ee-454f-455a-a1be-16b00788f3bc/triton-model-repository", \
+

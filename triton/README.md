@@ -3,6 +3,7 @@ oc new-project huggingface
 ```
 
 Create the secret from the certificates
+Reference https://www.digitalocean.com/community/tutorials/openssl-essentials-working-with-ssl-certificates-private-keys-and-csrs
 ```
 mkdir certificates
 cd certificates

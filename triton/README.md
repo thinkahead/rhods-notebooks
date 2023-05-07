@@ -4,6 +4,9 @@ oc new-project huggingface
 
 Create the secret from the certificates
 ```
+mkdir certificates
+cd certificates
+../create_certificates.sh
 kubectl create secret generic triton-certificates --from-file=ca.crt --from-file=ca.key --from-file=client.crt --from-file=client.key --from-file=server.crt --from-file=server.key -n huggingface
 ```
 

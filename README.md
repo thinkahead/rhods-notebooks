@@ -6,3 +6,4 @@ Refer to the blogs:
 ## Code
 - Original code at https://github.com/project-codeflare/codeflare-sdk/tree/main/demo-notebooks
 - Updated code at https://github.com/thinkahead/rhods-notebooks.git
+- Codeflare Base Image https://github.com/project-codeflare/codeflare-sdk/tree/main/custom-nb-image

@@ -1,5 +1,4 @@
-ARG BASE_CONTAINER=docker.io/jupyter/tensorflow-notebook:latest
-FROM $BASE_CONTAINER
+FROM image-registry.openshift-image-registry.svc:5000/redhat-ods-applications/tensorflow-notebook
 
 LABEL maintainer="karve@us.ibm.com"
 

@@ -7,13 +7,13 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 USER root
 RUN apt-get -y -o Acquire::Check-Valid-Until=false -o Acquire::Check-Date=false update
-RUN apt-get install -y xvfb ffmpeg cmake gcc zlib1g-dev zlib1g-dev freeglut3-dev
+RUN apt-get install -y xvfb ffmpeg cmake gcc zlib1g-dev zlib1g-dev freeglut3-dev python3-pip
 RUN conda update -n base -c conda-forge conda
 RUN conda install -y jupyterlab-git
 COPY customenv.yml customenv.yml
 RUN conda env create -f customenv.yml
-RUN pip uninstall torch torchvision -y;pip install --pre torch torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu117
-RUN pip install opencv-python transformers diffusers lpips accelerate
+RUN pip3 uninstall torch torchvision -y;pip install --pre torch torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu117
+RUN pip3 install opencv-python transformers diffusers lpips accelerate
 
 USER root
 

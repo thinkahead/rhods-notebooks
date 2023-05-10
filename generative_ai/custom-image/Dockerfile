@@ -1,4 +1,4 @@
-FROM image-registry.openshift-image-registry.svc:5000/redhat-ods-applications/tensorflow-notebook
+FROM image-registry.openshift-image-registry.svc:5000/redhat-ods-applications/tensorflow-notebook:latest
 
 LABEL maintainer="karve@us.ibm.com"
 

@@ -1,4 +1,4 @@
-name: env_ddet
+name: customenv
 channels:
   - pytorch
   - nvidia

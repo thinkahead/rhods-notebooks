@@ -12,13 +12,13 @@ RUN conda update -n base -c conda-forge conda
 RUN conda install -y jupyterlab-git
 COPY customenv.yml customenv.yml
 RUN conda env create -f customenv.yml
-RUN pip3 uninstall torch torchvision -y;pip install --pre torch torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu117
-RUN pip3 install opencv-python transformers diffusers lpips accelerate
+#RUN pip3 uninstall torch torchvision -y;pip install --pre torch torchvision --extra-index-url https://download.pytorch.org/whl/nightly/cu117
+#RUN pip3 install opencv-python transformers diffusers lpips accelerate
 
 USER root
 
 SHELL ["conda","run","-n","customenv","/bin/bash","-c"]
-RUN python -m ipykernel install --name customenv --display-name "Display customenv"
+RUN python -m ipykernel install --name customenv --display-name "customenv"
 
 RUN chmod -R 777 /home/jovyan
 USER ${NB_UID}

@@ -394,6 +394,7 @@ dependencies:
   - zlib=1.2.11
   - zstd=1.5.2
   - pip:
+      - --extra-index-url https://download.pytorch.org/whl/nightly/cu117
       - antlr4-python3-runtime==4.9.3
       - black==22.3.0
       - boto3==1.26.97
@@ -437,3 +438,11 @@ dependencies:
       - userpath==1.8.0
       - virtualenv==20.20.0
       - yacs==0.1.8
+      - torch
+      - torchvision
+      - opencv-python
+      - transformers
+      - diffusers
+      - lpips
+      - accelerate
+

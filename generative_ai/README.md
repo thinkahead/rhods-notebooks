@@ -9,6 +9,23 @@ Deleting the build
 ```
 oc get bc -n redhat-ods-applications
 oc delete bc custom-generative-ai-image -n redhat-ods-applications
+```
 
-Deleting the build
+
+```
+    opendatahub.io/notebook-image-name:
+      "Alexei Custom Notebook"
+    opendatahub.io/notebook-image-desc: "Alexei Custom Jupyter notebook image"
+  labels:
+    opendatahub.io/notebook-image: 'true'
+```
+
+```
+        - name: JUPYTER_IMAGE
+          value: image-registry.openshift-image-registry.svc:5000/redhat-ods-applications/tensorflow-notebook:latest
+        image: image-registry.openshift-image-registry.svc:5000/redhat-ods-applications/tensorflow-notebook:latest
+```
+
+```
+oc adm policy add-scc-to-user anyuid system:serviceaccount:generative-ai:stable-diffusion -n generative-ai
 ```

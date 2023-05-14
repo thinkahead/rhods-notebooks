@@ -445,7 +445,6 @@ dependencies:
       - lpips==0.1.4
       - accelerate==0.19.0
       - taming-transformers==0.0.1
-      - omegaconf==2.0.0
       - pytorch-lightning
       - ftfy==6.1.1
       - einops==0.6.1

@@ -440,17 +440,17 @@ dependencies:
       - yacs==0.1.8
       - torch
       - torchvision
-      - transformers==4.29.0
-      - diffusers==0.14.0
-      - lpips==0.1.4
-      - accelerate==0.19.0
-      - taming-transformers==0.0.1
+      - transformers
+      - diffusers
+      - lpips
+      - accelerate
+      - taming-transformers
       - pytorch-lightning
-      - ftfy==6.1.1
-      - einops==0.6.1
+      - ftfy
+      - einops
       - regex
       - imageio[ffmpeg]
       - imageio[pyav]
-      - onnxruntime==1.14.0
-      - onnx==1.14.0
+      - onnx==1.12.0
+      - onnxruntime
       - git+https://github.com/facebookresearch/segment-anything.git

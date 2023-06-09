@@ -65,6 +65,23 @@ spec:
                                             env:
                                                 - name: HF_DATASETS_CACHE
                                                   value: "/data/.cache/huggingface"
+                                                - name: OUTPUT_PATH
+                                                  value: "mnist123.onnx"
+                                                - name: AWS_ACCESS_KEY_ID
+                                                  valueFrom:
+                                                    secretKeyRef:
+                                                      name: aws-connection-my-object-store
+                                                      key: AWS_ACCESS_KEY_ID
+                                                - name: AWS_SECRET_ACCESS_KEY
+                                                  valueFrom:
+                                                    secretKeyRef:
+                                                      name: aws-connection-my-object-store
+                                                      key: AWS_SECRET_ACCESS_KEY
+                                                - name: AWS_S3_ENDPOINT
+                                                  valueFrom:
+                                                    secretKeyRef:
+                                                      name: aws-connection-my-object-store
+                                                      key: AWS_S3_ENDPOINT
                                             command:
                                                 - sh
                                                 - -c
@@ -76,8 +93,9 @@ spec:
                                                   #
                                                   # User commands
                                                   #
-                                                  #git clone https://github.com/thinkahead/mnist-distributed-training
-                                                  git clone https://github.com/metalcycling/mnist-distributed-training
+                                                  pip install onnx boto3
+                                                  git clone https://github.com/thinkahead/mnist-distributed-training
+                                                  #git clone https://github.com/metalcycling/mnist-distributed-training
                                                   cd mnist-distributed-training
                                                   torchrun --nnodes=${WORLD_SIZE} --node_rank=${RANK} --nproc_per_node=1 --rdzv_id=101 --rdzv_endpoint="mnist-training-master-0:${MASTER_PORT}" mnist.py
                                             resources:
@@ -132,8 +150,8 @@ spec:
                                                   #
                                                   # User commands
                                                   #
-                                                  #git clone https://github.com/thinkahead/mnist-distributed-training
-                                                  git clone https://github.com/metalcycling/mnist-distributed-training
+                                                  git clone https://github.com/thinkahead/mnist-distributed-training
+                                                  #git clone https://github.com/metalcycling/mnist-distributed-training
                                                   cd mnist-distributed-training
                                                   torchrun --nnodes=${WORLD_SIZE} --node_rank=${RANK} --nproc_per_node=1 --rdzv_id=101 --rdzv_endpoint="${MASTER_ADDR}:${MASTER_PORT}" mnist.py
                                             resources:

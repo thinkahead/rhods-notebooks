@@ -1,0 +1,88 @@
+apiVersion: serving.kserve.io/v1alpha1
+kind: ServingRuntime
+metadata:
+  annotations:
+    enable-auth: "false"
+    enable-route: "true"
+    maxLoadingConcurrency: "2"
+    opendatahub.io/template-display-name: triton-2.x Model Server Alexei
+    opendatahub.io/template-name: triton-2.x-alexei
+    openshift.io/display-name: triton-serving-runtime
+  labels:
+    name: modelmesh-serving-triton-2.x
+    opendatahub.io/dashboard: "true"
+  name: triton-2.x
+  namespace: huggingface
+spec:
+  builtInAdapter:
+    memBufferBytes: 134217728
+    modelLoadingTimeoutMillis: 270000
+    runtimeManagementPort: 8001
+    serverType: triton
+  containers:
+  - args:
+    - -c
+    - 'mkdir -p /models/_triton_models; chmod 777 /models/_triton_models; exec tritonserver
+      "--model-repository=/models/_triton_models" "--model-control-mode=explicit"
+      "--strict-model-config=false" "--strict-readiness=false" "--allow-http=true"
+      "--allow-sagemaker=false" "--grpc-keepalive-time=10000" "--grpc-keepalive-timeout=999999999"
+      "--grpc-keepalive-permit-without-calls=True" "--grpc-http2-max-pings-without-data=0"
+      "--grpc-http2-min-recv-ping-interval-without-data=5000" "--grpc-http2-max-ping-strikes=0" '
+    command:
+    - /bin/sh
+    image: image-registry.openshift-image-registry.svc:5000/modelmesh-serving/custom-triton-server:latest
+    livenessProbe:
+      exec:
+        command:
+        - curl
+        - --fail
+        - --silent
+        - --show-error
+        - --max-time
+        - "9"
+        - http://localhost:8000/v2/health/live
+      initialDelaySeconds: 5
+      periodSeconds: 30
+      timeoutSeconds: 10
+    name: triton
+    resources:
+      limits:
+        cpu: "5"
+        memory: 12Gi
+        nvidia.com/gpu: "1"
+      requests:
+        cpu: 500m
+        memory: 12Gi
+        nvidia.com/gpu: "1"
+    volumeMounts:
+    - mountPath: /dev/shm
+      name: dshm
+  grpcDataEndpoint: port:8001
+  grpcEndpoint: port:8085
+  multiModel: true
+  protocolVersions:
+  - grpc-v2
+  supportedModelFormats:
+  - autoSelect: true
+    name: keras
+    version: "2"
+  - autoSelect: true
+    name: onnx
+    version: "1"
+  - autoSelect: true
+    name: pytorch
+    version: "1"
+  - autoSelect: true
+    name: tensorflow
+    version: "1"
+  - autoSelect: true
+    name: tensorflow
+    version: "2"
+  - autoSelect: true
+    name: tensorrt
+    version: "7"
+  volumes:
+  - emptyDir:
+      medium: Memory
+      sizeLimit: 2Gi
+    name: dshm

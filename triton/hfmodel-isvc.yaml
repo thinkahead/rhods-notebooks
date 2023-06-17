@@ -1,0 +1,21 @@
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
+metadata:
+  annotations:
+    openshift.io/display-name: hfmodel
+    serving.kserve.io/deploymentMode: ModelMesh
+  labels:
+    name: hfmodel
+    opendatahub.io/dashboard: "true"
+  name: hfmodel
+  namespace: huggingface
+spec:
+  predictor:
+    model:
+      modelFormat:
+        name: pytorch
+        version: "1"
+      runtime: triton-2.x
+      storage:
+        key: aws-connection-my-object-store
+        path: hfmodel
